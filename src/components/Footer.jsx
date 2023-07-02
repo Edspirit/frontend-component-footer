@@ -7,7 +7,7 @@ import { AppContext } from "@edx/frontend-platform/react";
 
 import messages from "./Footer.messages";
 import LanguageSelector from "./LanguageSelector";
-
+import logoPlaceholder from "../assets/org-logo-place-holder.svg";
 ensureConfig(["LMS_BASE_URL", "LOGO_TRADEMARK_URL"], "Footer component");
 
 const EVENT_NAMES = {
@@ -26,7 +26,12 @@ class SiteFooter extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchFooterData();
+    const { config } = this.context;
+    if (config.AC_INSTANCE_CONFIG_API_URL && config.LMS_BASE_URL) {
+      this.fetchFooterData();
+    } else {
+      console.warn("AC_INSTANCE_CONFIG_API_URL is not defined");
+    }
   }
 
   externalLinkClickHandler(event) {
@@ -47,8 +52,8 @@ class SiteFooter extends React.Component {
       .then((response) => {
         this.setState({
           result: JSON.parse(response),
-          footerLegal: JSON.parse(JSON.parse(response).footer_legal_links),
-          footerNav: JSON.parse(JSON.parse(response).footer_nav_links),
+          footerLegal: JSON.parse(JSON.parse(response)?.footer_legal_links),
+          footerNav: JSON.parse(JSON.parse(response)?.footer_nav_links),
         });
       })
       .catch((err) => {
@@ -59,7 +64,7 @@ class SiteFooter extends React.Component {
   render() {
     const { supportedLanguages, onLanguageSelected, logo, intl } = this.props;
     const showLanguageSelector =
-      supportedLanguages.length > 0 && onLanguageSelected;
+      supportedLanguages?.length > 0 && onLanguageSelected;
     const { config } = this.context;
 
     return (
@@ -90,7 +95,10 @@ class SiteFooter extends React.Component {
               <a href="https://edspirit.com" aria-label="edspirit logo">
                 <img
                   className="edspirit-logo"
-                  src={`${config.LMS_BASE_URL}${this.state.result?.edspirit_logo}`}
+                  src={
+                    `${config.LMS_BASE_URL}${this.state.result?.edspirit_logo}` ||
+                    logoPlaceholder
+                  }
                   alt="edX Logo"
                 />
               </a>
@@ -98,8 +106,9 @@ class SiteFooter extends React.Component {
                 <img
                   className="openEdx-logo"
                   src={
-                    `${config.LMS_BASE_URL}${this.state.result?.openedx_logo}` ||
-                    config.LOGO_TRADEMARK_URL
+                    this.state.result?.openedx_logo
+                      ? `${config.LMS_BASE_URL}${this.state.result.openedx_logo}`
+                      : config.LOGO_TRADEMARK_URL || logoPlaceholder
                   }
                   alt={intl.formatMessage(messages["footer.logo.altText"])}
                 />
