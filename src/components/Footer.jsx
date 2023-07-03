@@ -56,7 +56,7 @@ const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
           <div className="footer-nav">
             <div className="footer-nav-links">
               <ul className="list-unstyled p-0 m-0 nav-list">
-                {data?.footerNav?.map((nav) => (
+                {data?.footer_nav_links?.map((nav) => (
                   <li key={nav?.title}>
                     <a href={nav?.link}>{nav?.title}</a>
                   </li>
@@ -65,7 +65,7 @@ const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
             </div>
             <div className="footer-legal-links">
               <ul className="list-unstyled p-0 m-0 nav-list">
-                {data?.footerLegal?.map((nav) => (
+                {data?.footer_legal_links?.map((nav) => (
                   <li key={nav?.title}>
                     <a href={nav?.link}>{nav?.title}</a>
                   </li>
