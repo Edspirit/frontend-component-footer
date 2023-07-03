@@ -45,9 +45,11 @@ class SiteFooter extends React.Component {
   }
 
   fetchFooterData() {
-    fetch(
-      `${this.context.config.LMS_BASE_URL}${this.context.config.AC_INSTANCE_CONFIG_API_URL}`
-    )
+    const { config } = this.context;
+    if (!config) {
+      return;
+    }
+    fetch(`${config.LMS_BASE_URL}${config.AC_INSTANCE_CONFIG_API_URL}`)
       .then((response) => response.json())
       .then((response) => {
         this.setState({
