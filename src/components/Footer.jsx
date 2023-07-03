@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { injectIntl, intlShape } from "@edx/frontend-platform/i18n";
 import { sendTrackEvent } from "@edx/frontend-platform/analytics";
@@ -14,27 +14,31 @@ const EVENT_NAMES = {
   FOOTER_LINK: "edx.bi.footer.link",
 };
 
-class SiteFooter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.externalLinkClickHandler = this.externalLinkClickHandler.bind(this);
-    this.state = {
-      result: undefined,
-      footerLegal: undefined,
-      footerNav: undefined,
-    };
-  }
+const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
+  const [result, setResult] = useState(undefined);
+  const [footerLegal, setFooterLegal] = useState(undefined);
+  const [footerNav, setFooterNav] = useState(undefined);
 
-  componentDidMount() {
-    const { config } = this.context;
-    if (config.AC_INSTANCE_CONFIG_API_URL && config.LMS_BASE_URL) {
-      this.fetchFooterData();
+  const { config } = useContext(AppContext);
+
+  useEffect(() => {
+    if (config && config.AC_INSTANCE_CONFIG_API_URL && config.LMS_BASE_URL) {
+      fetch(`${config.LMS_BASE_URL}${config.AC_INSTANCE_CONFIG_API_URL}`)
+        .then((response) => response.json())
+        .then((response) => {
+          setResult(JSON.parse(response));
+          setFooterLegal(JSON.parse(JSON.parse(response)?.footer_legal_links));
+          setFooterNav(JSON.parse(JSON.parse(response)?.footer_nav_links));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       console.warn("AC_INSTANCE_CONFIG_API_URL is not defined");
     }
-  }
+  }, [config]);
 
-  externalLinkClickHandler(event) {
+  const externalLinkClickHandler = (event) => {
     const label = event.currentTarget.getAttribute("href");
     const eventName = EVENT_NAMES.FOOTER_LINK;
     const properties = {
@@ -42,95 +46,70 @@ class SiteFooter extends React.Component {
       label,
     };
     sendTrackEvent(eventName, properties);
-  }
+  };
 
-  fetchFooterData() {
-    const { config } = this.context;
-    if (!config) {
-      return;
-    }
-    fetch(`${config.LMS_BASE_URL}${config.AC_INSTANCE_CONFIG_API_URL}`)
-      .then((response) => response.json())
-      .then((response) => {
-        this.setState({
-          result: JSON.parse(response),
-          footerLegal: JSON.parse(JSON.parse(response)?.footer_legal_links),
-          footerNav: JSON.parse(JSON.parse(response)?.footer_nav_links),
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  const showLanguageSelector =
+    supportedLanguages?.length > 0 && onLanguageSelected;
 
-  render() {
-    const { supportedLanguages, onLanguageSelected, logo, intl } = this.props;
-    const showLanguageSelector =
-      supportedLanguages?.length > 0 && onLanguageSelected;
-    const { config } = this.context;
-
-    return (
-      <footer role="contentinfo" className="footer d-flex border-top py-3 px-4">
-        <div className="container-fluid d-flex">
-          <div className="footer-wrapper">
-            <div className="footer-nav">
-              <div className="footer-nav-links">
-                <ul className="list-unstyled p-0 m-0 nav-list">
-                  {this.state.footerNav?.map((nav) => (
-                    <li key={nav?.title}>
-                      <a href={nav?.link}>{nav?.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="footer-legal-links">
-                <ul className="list-unstyled p-0 m-0 nav-list">
-                  {this.state.footerLegal?.map((nav) => (
-                    <li key={nav?.title}>
-                      <a href={nav?.link}>{nav?.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+  return (
+    <footer role="contentinfo" className="footer d-flex border-top py-3 px-4">
+      <div className="container-fluid d-flex">
+        <div className="footer-wrapper">
+          <div className="footer-nav">
+            <div className="footer-nav-links">
+              <ul className="list-unstyled p-0 m-0 nav-list">
+                {footerNav?.map((nav) => (
+                  <li key={nav?.title}>
+                    <a href={nav?.link}>{nav?.title}</a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="logo-wrapper">
-              <a href="https://edspirit.com" aria-label="edspirit logo">
-                <img
-                  className="edspirit-logo"
-                  src={
-                    `${config.LMS_BASE_URL}${this.state.result?.edspirit_logo}` ||
-                    logoPlaceholder
-                  }
-                  alt="edX Logo"
-                />
-              </a>
-              <a href="https://open.edx.org">
-                <img
-                  className="openEdx-logo"
-                  src={
-                    this.state.result?.openedx_logo
-                      ? `${config.LMS_BASE_URL}${this.state.result.openedx_logo}`
-                      : config.LOGO_TRADEMARK_URL || logoPlaceholder
-                  }
-                  alt={intl.formatMessage(messages["footer.logo.altText"])}
-                />
-              </a>
+            <div className="footer-legal-links">
+              <ul className="list-unstyled p-0 m-0 nav-list">
+                {footerLegal?.map((nav) => (
+                  <li key={nav?.title}>
+                    <a href={nav?.link}>{nav?.title}</a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-          <div className="flex-grow-1" />
-          {showLanguageSelector && (
-            <LanguageSelector
-              options={supportedLanguages}
-              onSubmit={onLanguageSelected}
-            />
-          )}
+          <div className="logo-wrapper">
+            <a href="https://edspirit.com" aria-label="edspirit logo">
+              <img
+                className="edspirit-logo"
+                src={
+                  `${config.LMS_BASE_URL}${result?.edspirit_logo}` ||
+                  logoPlaceholder
+                }
+                alt="edX Logo"
+              />
+            </a>
+            <a href="https://open.edx.org">
+              <img
+                className="openEdx-logo"
+                src={
+                  result?.openedx_logo
+                    ? `${config.LMS_BASE_URL}${result.openedx_logo}`
+                    : config.LOGO_TRADEMARK_URL || logoPlaceholder
+                }
+                alt={intl.formatMessage(messages["footer.logo.altText"])}
+              />
+            </a>
+          </div>
         </div>
-      </footer>
-    );
-  }
-}
-
-SiteFooter.contextType = AppContext;
+        <div className="flex-grow-1" />
+        {showLanguageSelector && (
+          <LanguageSelector
+            options={supportedLanguages}
+            onSubmit={onLanguageSelected}
+          />
+        )}
+      </div>
+    </footer>
+  );
+};
 
 SiteFooter.propTypes = {
   intl: intlShape.isRequired,
