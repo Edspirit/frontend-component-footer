@@ -15,26 +15,28 @@ const EVENT_NAMES = {
 };
 
 const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
-  const [data, setData] = useState();
+  const [result, setResult] = useState(undefined);
+  const [footerLegal, setFooterLegal] = useState(undefined);
+  const [footerNav, setFooterNav] = useState(undefined);
+
   const { config } = useContext(AppContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${config.LMS_BASE_URL}${config.AC_INSTANCE_CONFIG_API_URL}`
-        );
-        const result = await response.json();
-        setData(JSON.parse(result));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (config.AC_INSTANCE_CONFIG_API_URL && config.LMS_BASE_URL) {
-      fetchData();
+    if (config && config.AC_INSTANCE_CONFIG_API_URL && config.LMS_BASE_URL) {
+      fetch(`${config.LMS_BASE_URL}${config.AC_INSTANCE_CONFIG_API_URL}`)
+        .then((response) => response.json())
+        .then((response) => {
+          setResult(JSON.parse(response));
+          setFooterLegal(JSON.parse(JSON.parse(response)?.footer_legal_links));
+          setFooterNav(JSON.parse(JSON.parse(response)?.footer_nav_links));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.warn("AC_INSTANCE_CONFIG_API_URL is not defined");
     }
-  }, [config.AC_INSTANCE_CONFIG_API_URL, config.LMS_BASE_URL]);
+  }, [config]);
 
   const externalLinkClickHandler = (event) => {
     const label = event.currentTarget.getAttribute("href");
@@ -56,7 +58,7 @@ const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
           <div className="footer-nav">
             <div className="footer-nav-links">
               <ul className="list-unstyled p-0 m-0 nav-list">
-                {data?.footer_nav_links?.map((nav) => (
+                {footerNav?.map((nav) => (
                   <li key={nav?.title}>
                     <a href={nav?.link}>{nav?.title}</a>
                   </li>
@@ -65,7 +67,7 @@ const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
             </div>
             <div className="footer-legal-links">
               <ul className="list-unstyled p-0 m-0 nav-list">
-                {data?.footer_legal_links?.map((nav) => (
+                {footerLegal?.map((nav) => (
                   <li key={nav?.title}>
                     <a href={nav?.link}>{nav?.title}</a>
                   </li>
@@ -78,8 +80,8 @@ const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
               <img
                 className="edspirit-logo"
                 src={
-                  data?.edspirit_logo
-                    ? `${config.LMS_BASE_URL}${data?.edspirit_logo}`
+                  result?.edspirit_logo
+                    ? `${config.LMS_BASE_URL}${result?.edspirit_logo}`
                     : logoPlaceholder
                 }
                 alt="edX Logo"
@@ -89,8 +91,8 @@ const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
               <img
                 className="openEdx-logo"
                 src={
-                  data?.openedx_logo
-                    ? `${config.LMS_BASE_URL}${data.openedx_logo}`
+                  result?.openedx_logo
+                    ? `${config.LMS_BASE_URL}${result.openedx_logo}`
                     : config.LOGO_TRADEMARK_URL || logoPlaceholder
                 }
                 alt={intl.formatMessage(messages["footer.logo.altText"])}
