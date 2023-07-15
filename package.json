@@ -40,7 +40,6 @@
     "@commitlint/prompt": "12.1.4",
     "@commitlint/prompt-cli": "12.1.4",
     "@edx/brand": "npm:@edx/brand-openedx@1.1.0",
-    "react-query": "^3.39.3",
     "@edx/frontend-build": "5.6.14",
     "@edx/frontend-platform": "1.11.3",
     "@edx/paragon": "12.8.0",
@@ -58,7 +57,6 @@
     "redux": "4.1.1"
   },
   "dependencies": {
-    "react-query": "^3.39.3",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-brands-svg-icons": "5.15.4",
     "@fortawesome/free-regular-svg-icons": "5.15.4",

@@ -1,32 +1,35 @@
-import { injectIntl, FormattedMessage } from "@edx/frontend-platform/i18n";
-import { sendTrackEvent } from "@edx/frontend-platform/analytics";
-import { ensureConfig } from "@edx/frontend-platform/config";
-import { Icon } from "@edx/paragon";
-import edLogo from "../assets/edspirit-logo.png";
-import mobileFooterLogo from "../assets/mobile-footer-logo.svg";
-import mobileEdxLogo from "../assets/mobile-edx-logo.svg";
-import edxLogo from "../assets/Edx.svg";
-import DefaultLogo from "../assets/NavLogo-placeholder.svg";
-import { ReactComponent as Linkedin } from "../assets/linkedin.svg";
-import { ReactComponent as Facebook } from "../assets/facebook.svg";
-import { ReactComponent as Twitter } from "../assets/twitter.svg";
-import { ReactComponent as Instagram } from "../assets/instagram.svg";
-import useGetFooters from "./useGetFooters";
-import ChooseLanguage from "./footer-section/ChooseLanguage";
+import { injectIntl, FormattedMessage } from '@edx/frontend-platform/i18n';
+import { sendTrackEvent } from '@edx/frontend-platform/analytics';
+import { ensureConfig } from '@edx/frontend-platform/config';
+import { Icon } from '@edx/paragon';
+import React from 'react';
+import edLogo from '../assets/edspirit-logo.png';
+import mobileFooterLogo from '../assets/mobile-footer-logo.svg';
+import mobileEdxLogo from '../assets/mobile-edx-logo.svg';
+import edxLogo from '../assets/Edx.svg';
+import DefaultLogo from '../assets/NavLogo-placeholder.svg';
+import { ReactComponent as Linkedin } from '../assets/linkedin.svg';
+import { ReactComponent as Facebook } from '../assets/facebook.svg';
+import { ReactComponent as Twitter } from '../assets/twitter.svg';
+import { ReactComponent as Instagram } from '../assets/instagram.svg';
+import useGetFooters from './useGetFooters';
+import ChooseLanguage from './footer-section/ChooseLanguage';
 
-ensureConfig(["LMS_BASE_URL", "LOGO_TRADEMARK_URL"], "Footer component");
+ensureConfig(['LMS_BASE_URL', 'LOGO_TRADEMARK_URL'], 'Footer component');
 
 const EVENT_NAMES = {
-  FOOTER_LINK: "edx.bi.footer.link",
+  FOOTER_LINK: 'edx.bi.footer.link',
 };
 
-const SiteFooter = ({ supportedLanguages, onLanguageSelected, logo, intl }) => {
+const SiteFooter = ({
+  supportedLanguages, onLanguageSelected, logo, intl,
+}) => {
   const { footerData } = useGetFooters();
   const externalLinkClickHandler = (event) => {
-    const label = event.currentTarget.getAttribute("href");
+    const label = event.currentTarget.getAttribute('href');
     const eventName = EVENT_NAMES.FOOTER_LINK;
     const properties = {
-      category: "outbound_link",
+      category: 'outbound_link',
       label,
     };
     sendTrackEvent(eventName, properties);

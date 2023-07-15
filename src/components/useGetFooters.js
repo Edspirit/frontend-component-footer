@@ -1,22 +1,39 @@
 import { getConfig } from '@edx/frontend-platform';
-import { useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
 
 const useGetFooters = () => {
-  const fetchFooters = async () => {
-    const apiRes = await fetch(
-      `${getConfig().LMS_BASE_URL}/admin-console/api/footer-section/`,
-    );
-
-    if (!apiRes.ok) {
-      throw new Error('fetch not ok');
+  const [footerData, setFooterData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const getFooters = async () => {
+    try {
+      const response = await fetch(
+        `${getConfig().LMS_BASE_URL}/admin-console/api/footer-section/`,
+      );
+      if (!response.ok) {
+        throw new Error('fetch footer not ok');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return null;
     }
-
-    return apiRes.json();
   };
-  const { data, isLoading } = useQuery('Footers', fetchFooters);
+
+  useEffect(() => {
+    const fetchFooters = async () => {
+      const data = await getFooters();
+      setFooterData(data);
+      setLoading(false);
+    };
+
+    if (getConfig().LMS_BASE_URL) {
+      fetchFooters();
+    }
+  }, [getConfig().LMS_BASE_URL]);
   return {
-    footerData: data,
-    loading: isLoading,
+    footerData,
+    loading,
   };
 };
 export default useGetFooters;
