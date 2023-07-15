@@ -6,34 +6,31 @@ import {
   ModalLayer,
   useMediaQuery,
   useToggle,
-} from '@edx/paragon';
-import {
-  Check, Close, KeyboardArrowDown, Language,
-} from '@edx/paragon/icons';
-import { useContext, useState } from 'react';
-import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
-import { getConfig } from '@edx/frontend-platform';
+} from "@edx/paragon";
+import { Check, Close, KeyboardArrowDown, Language } from "@edx/paragon/icons";
+import { useContext, useState } from "react";
+import { getAuthenticatedHttpClient } from "@edx/frontend-platform/auth";
+import { getConfig } from "@edx/frontend-platform";
 import {
   FormattedMessage,
   getLocale,
   handleRtl,
-} from '@edx/frontend-platform/i18n';
-import { AppContext } from '@edx/frontend-platform/react';
-import useGetActiveLangs from '../../../../hooks/useGetActiveLangs';
-import { supportedLanguages } from '../../../../utils/supportsLanguages';
-import handleRedirect from '../../../../utils/handleRedirect';
+} from "@edx/frontend-platform/i18n";
+import { AppContext } from "@edx/frontend-platform/react";
+import { supportedLanguages } from "../supportsLanguages";
+import handleRedirect from "../handleRedirect";
 
 const ChooseLanguage = () => {
   const { activeLangs } = useGetActiveLangs();
   const getLangName = (languageCode) => {
     const langSelected = supportedLanguages?.find(
-      (lang) => lang?.code === languageCode,
+      (lang) => lang?.code === languageCode
     );
     return langSelected?.name;
   };
   const [value, setValue] = useState(getLangName(getLocale()));
   const [isOpen, open, close] = useToggle(false);
-  const isMobile = useMediaQuery({ maxWidth: '768px' });
+  const isMobile = useMediaQuery({ maxWidth: "768px" });
   const { authenticatedUser } = useContext(AppContext);
   async function patchPreferences(params) {
     const { status } = await getAuthenticatedHttpClient().patch(
@@ -41,11 +38,11 @@ const ChooseLanguage = () => {
         authenticatedUser?.username
       }`,
       {
-        'pref-lang': params,
+        "pref-lang": params,
       },
       {
-        headers: { 'Content-Type': 'application/merge-patch+json' },
-      },
+        headers: { "Content-Type": "application/merge-patch+json" },
+      }
     );
     if (status === 204) {
       setValue(getLangName(getLocale()));
@@ -68,7 +65,7 @@ const ChooseLanguage = () => {
   // }
   const getLangCode = (languageName) => {
     const langSelected = supportedLanguages?.find(
-      (lang) => lang?.name === languageName,
+      (lang) => lang?.name === languageName
     );
     return langSelected.code;
   };
