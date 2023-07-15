@@ -83,12 +83,12 @@
 }
 .footer-desc {
   @extend .text-gray-500;
-  font-size: $font-size-base-xs;
+  font-size: 0.75rem;
 }
 .list-unstyled {
   list-style: none;
   a {
-    font-size: $font-size-base-sm;
+    font-size: 0.875rem;
     color: $primary-700;
   }
 }
@@ -124,7 +124,7 @@
     grid-column: 1/10;
     grid-row: 1/2;
     p {
-      font-size: $font-size-base-sm;
+      font-size: 0.875rem;
     }
   }
   .footer-col1-wrapper {
