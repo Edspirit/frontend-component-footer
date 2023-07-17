@@ -19,6 +19,15 @@ p {
 }
 .footer-container {
   border-top: 1px solid $light-300;
+  .logo-container {
+    width: 146px;
+    height: 32px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
 
 .language-btn-container {
@@ -70,15 +79,6 @@ p {
 .footer-wrapper {
   display: grid;
   grid-template-columns: repeat(26, 1fr);
-  .logo-container {
-    width: 146px;
-    height: 32px;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  }
   .footer-desc-wrapper {
     grid-column: 1/10;
     grid-row: 1/2;
@@ -169,10 +169,10 @@ p {
       background-color: unset;
       color: $black;
     }
-  }
-  .pgn__icon {
-    width: 20px;
-    height: 20px;
+    .pgn__icon {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
 .close-wrapper {
@@ -240,6 +240,13 @@ p {
       }
     }
   }
+  .footer-copy-right {
+    .logo-container {
+      img {
+        object-fit: contain;
+      }
+    }
+  }
 }
 @media (max-width: 600px) {
   .footer-wrapper {
@@ -284,9 +291,6 @@ p {
       padding: 4px;
       background-color: $light-300;
       border-radius: 4px;
-      img {
-        object-fit: contain;
-      }
     }
     .footer-logo {
       display: none;
