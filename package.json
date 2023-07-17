@@ -64,6 +64,7 @@
     "@fortawesome/react-fontawesome": "0.1.15"
   },
   "peerDependencies": {
+    "@edx/paragon": "20.26.3",
     "@edx/frontend-platform": "^1.8.0",
     "prop-types": "^15.5.10",
     "react": "^16.9.0",

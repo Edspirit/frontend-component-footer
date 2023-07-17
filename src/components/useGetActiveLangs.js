@@ -10,22 +10,27 @@ const useGetActiveLangs = () => {
 
   useEffect(() => {
     const fetchActiveLangs = async () => {
-      setLoading(true);
-      const client = getAuthenticatedHttpClient();
-      const baseUrl = getConfig().LMS_BASE_URL;
-      const response = await client.get(
-        `${baseUrl}/admin-console/api/active-langs/`,
-      );
-      const newActiveLangs = JSON.parse(response.data);
-      const newLocale = newActiveLangs && newActiveLangs[0] && newActiveLangs[0].code;
-      setActiveLangs(activeLangs);
-      setLocale(newLocale);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const client = getAuthenticatedHttpClient();
+        const baseUrl = getConfig().LMS_BASE_URL;
+        const response = await client.get(
+          `${baseUrl}/admin-console/api/active-langs/`,
+        );
+        const newActiveLangs = JSON.parse(response.data);
+        const newLocale = newActiveLangs?.[0]?.code;
+        setActiveLangs(newActiveLangs);
+        setLocale(newLocale);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     };
-    if (getConfig().LMS_BASE_URL) {
+    if (getConfig()?.LMS_BASE_URL) {
       fetchActiveLangs();
     }
-  }, [getConfig().LMS_BASE_URL]);
+  }, [getConfig()]);
   return {
     activeLangs,
     loading,
