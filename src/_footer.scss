@@ -169,7 +169,7 @@ p {
   }
   .lang-dropdown {
     .dropdown-menu {
-      width: auto;
+      width: auto !important;
     }
   }
   .dropdown-wrapper {
@@ -238,6 +238,42 @@ p {
       background-color: unset;
       color: $black;
     }
+  }
+}
+.close-wrapper {
+  color: $gray-500;
+  border-bottom: 1px solid $light-300;
+  .pgn__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+.more-modal-items {
+  position: absolute !important;
+  bottom: 0;
+  width: 100%;
+}
+.check-icon {
+  color: $brand-500 !important;
+}
+.dropdown-menu {
+  box-shadow: $box-shadow-custom;
+  border: unset;
+  padding: unset;
+  min-width: unset;
+}
+// change dropdown icon when it is open
+.show {
+  .btn-icon-after {
+    transform: scale(-1);
+    color: $gray-500;
+  }
+}
+//
+.pgn__dropdown {
+  .pgn__icon {
+    width: 20px;
+    height: 20px;
   }
 }
 @media (min-width: 600px) and (max-width: 1024px) {

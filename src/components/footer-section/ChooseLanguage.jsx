@@ -8,7 +8,7 @@ import {
   useToggle,
 } from '@edx/paragon';
 import {
-  Check, Close, KeyboardArrowDown, Language,
+  Check, Close, Language,
 } from '@edx/paragon/icons';
 import React, { useContext, useState } from 'react';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
@@ -22,10 +22,10 @@ import { AppContext } from '@edx/frontend-platform/react';
 import { supportedLanguages } from '../supportsLanguages';
 import handleRedirect from '../handleRedirect';
 import useGetActiveLangs from '../useGetActiveLangs';
+import { ReactComponent as KeyboardArrowDown } from '../../assets/icon-arrow-down.svg';
 
 const ChooseLanguage = () => {
   const { activeLangs } = useGetActiveLangs();
-  console.log('activeLangs', activeLangs);
   const getLangName = (languageCode) => {
     const langSelected = supportedLanguages?.find(
       (lang) => lang?.code === languageCode,
@@ -55,18 +55,6 @@ const ChooseLanguage = () => {
     return params; // TODO: Once the server returns the updated preferences object, return that.
   }
 
-  // async function postSetLang(code) {
-  //   const formData = new FormData();
-  //   formData.append('language', code);
-
-  //   await getAuthenticatedHttpClient().post(
-  //     `${getConfig().LMS_BASE_URL}/i18n/setlang/`,
-  //     formData,
-  //     {
-  //       headers: { 'X-Requested-With': 'XMLHttpRequest' },
-  //     },
-  //   );
-  // }
   const getLangCode = (languageName) => {
     const langSelected = supportedLanguages?.find(
       (lang) => lang?.name === languageName,
@@ -80,8 +68,6 @@ const ChooseLanguage = () => {
       return null;
     }
     patchPreferences(getLangCode(e.target.innerText));
-    // postSetLang(getLangCode(e.target.innerText));
-    // publish(LOCALE_CHANGED, getLocale());
     handleRtl();
   };
   return (
@@ -142,7 +128,6 @@ const ChooseLanguage = () => {
                 eventKey={lang.name}
                 onClick={handleClick}
               >
-                {console.log('getLangName(lang.code)', getLangName(lang.code))}
                 {getLangName(lang.code)}
               </Dropdown.Item>
             ))}
