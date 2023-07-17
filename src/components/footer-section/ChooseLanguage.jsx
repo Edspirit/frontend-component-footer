@@ -22,7 +22,7 @@ import { AppContext } from '@edx/frontend-platform/react';
 import { supportedLanguages } from '../supportsLanguages';
 import handleRedirect from '../handleRedirect';
 import useGetActiveLangs from '../useGetActiveLangs';
-import { ReactComponent as KeyboardArrowDown } from '../../assets/icon-arrow-down.svg';
+import { ReactComponent as ArrowDown } from '../../assets/icon-arrow-down.svg';
 
 const ChooseLanguage = () => {
   const { activeLangs } = useGetActiveLangs();
@@ -115,7 +115,7 @@ const ChooseLanguage = () => {
         >
           <Dropdown.Toggle
             id="dropdown-basic-4"
-            iconAfter={KeyboardArrowDown}
+            iconAfter={ArrowDown}
             iconBefore={Language}
           >
             <span className="text-primary-500 dropdown-title"> {value}</span>

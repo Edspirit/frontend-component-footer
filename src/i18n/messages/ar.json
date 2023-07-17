@@ -28,5 +28,8 @@
   "footer.mobileApp.google": "Download the edX mobile app from Google Play",
   "footer.logo.altText": "Powered by Open edX",
   "footer.logo.ariaLabel": "edX Home",
-  "footer.ariaLabel": "Page Footer"
+  "footer.ariaLabel": "Page Footer",
+  "footer.chooseLanguage.text": "اختر اللغة",
+  "footer.powerdBy.text": "مدعم بواسطة ",
+  "footer.copyRight.text": "edX وOpen edX هما علامتان تجاريتان تعود ملكيتهما لشركة edX LLC. جميع الحقوق محفوظة."
 }

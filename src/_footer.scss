@@ -349,7 +349,7 @@ p {
     align-items: unset !important;
     background-color: $light-200;
     .logo-container {
-      width: 32px;
+      width: 32px !important;
       padding: 4px;
       background-color: $light-300;
       border-radius: 4px;
