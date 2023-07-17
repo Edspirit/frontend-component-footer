@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { injectIntl, FormattedMessage } from '@edx/frontend-platform/i18n';
-import { ensureConfig } from '@edx/frontend-platform/config';
 import { Icon } from '@edx/paragon';
 import React from 'react';
 import edLogo from '../assets/edspirit-logo.png';
@@ -14,11 +15,7 @@ import { ReactComponent as Instagram } from '../assets/instagram.svg';
 import useGetFooters from './useGetFooters';
 import ChooseLanguage from './footer-section/ChooseLanguage';
 
-ensureConfig(['LMS_BASE_URL', 'LOGO_TRADEMARK_URL'], 'Footer component');
-
-const SiteFooter = ({
-  supportedLanguages, onLanguageSelected, logo, intl,
-}) => {
+const SiteFooter = () => {
   const { footerData } = useGetFooters();
 
   return (
