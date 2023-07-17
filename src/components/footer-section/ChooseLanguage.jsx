@@ -25,6 +25,7 @@ import useGetActiveLangs from '../useGetActiveLangs';
 
 const ChooseLanguage = () => {
   const { activeLangs } = useGetActiveLangs();
+  console.log('activeLangs', activeLangs);
   const getLangName = (languageCode) => {
     const langSelected = supportedLanguages?.find(
       (lang) => lang?.code === languageCode,
@@ -141,6 +142,7 @@ const ChooseLanguage = () => {
                 eventKey={lang.name}
                 onClick={handleClick}
               >
+                {console.log('getLangName(lang.code)', getLangName(lang.code))}
                 {getLangName(lang.code)}
               </Dropdown.Item>
             ))}
