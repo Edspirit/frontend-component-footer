@@ -13,11 +13,12 @@
     padding-left: 24px;
   }
 }
-p {
-  margin-top: unset;
-  margin-bottom: unset;
-}
+
 .footer-container {
+  p {
+    margin-top: unset;
+    margin-bottom: unset;
+  }
   border-top: 1px solid $light-300;
   .logo-container {
     width: 146px;
