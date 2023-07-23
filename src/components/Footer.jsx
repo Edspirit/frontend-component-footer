@@ -2,7 +2,7 @@ import { injectIntl } from '@edx/frontend-platform/i18n';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import FooterSection from './FooterSection';
+import FooterSection from './Footer/FooterSection';
 
 const queryClient = new QueryClient({
   defaultOptions: {
