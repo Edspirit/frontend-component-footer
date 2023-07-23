@@ -20,10 +20,10 @@ import {
   handleRtl,
 } from '@edx/frontend-platform/i18n';
 import { AppContext } from '@edx/frontend-platform/react';
-import { supportedLanguages } from '../supportsLanguages';
 import handleRedirect from '../handleRedirect';
 import useGetActiveLangs from '../useGetActiveLangs';
-import { ReactComponent as ArrowDown } from '../../assets/icon-arrow-down.svg';
+import { ReactComponent as ArrowDown } from '../../../assets/icon-arrow-down.svg';
+import { supportedLanguages } from '../supportsLanguages';
 
 const ChooseLanguage = () => {
   const { activeLangs } = useGetActiveLangs();
