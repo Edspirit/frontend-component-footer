@@ -57,6 +57,7 @@
     "redux": "4.1.1"
   },
   "dependencies": {
+    "react-query": "^3.39.3",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-brands-svg-icons": "5.15.4",
     "@fortawesome/free-regular-svg-icons": "5.15.4",

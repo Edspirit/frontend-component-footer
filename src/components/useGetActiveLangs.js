@@ -1,39 +1,33 @@
 import { getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { getLocale } from '@edx/frontend-platform/i18n';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 const useGetActiveLangs = () => {
-  const [activeLangs, setActiveLangs] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [locale, setLocale] = useState(getLocale());
+  const fetchActiveLangs = async () => {
+    const client = getAuthenticatedHttpClient();
+    const baseUrl = getConfig().LMS_BASE_URL;
+    const response = await client.get(`${baseUrl}/admin-console/api/active-langs/`);
+    const activeLangs = JSON.parse(response.data);
+    const newLocale = activeLangs && activeLangs[0] && activeLangs[0].code;
+    setLocale(newLocale);
+    return activeLangs;
+  };
+  const {
+    data, isLoading, isError, error,
+  } = useQuery('ActiveLangs', fetchActiveLangs, {
+    retry: 1,
+    onError: (err) => {
+      console.error('An error occurred:', err);
+    },
+  });
 
-  useEffect(() => {
-    const fetchActiveLangs = async () => {
-      try {
-        setLoading(true);
-        const client = getAuthenticatedHttpClient();
-        const baseUrl = getConfig().LMS_BASE_URL;
-        const response = await client.get(
-          `${baseUrl}/admin-console/api/active-langs/`,
-        );
-        const newActiveLangs = JSON.parse(response.data);
-        const newLocale = newActiveLangs?.[0]?.code;
-        setActiveLangs(newActiveLangs);
-        setLocale(newLocale);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (getConfig()?.LMS_BASE_URL) {
-      fetchActiveLangs();
-    }
-  }, [getConfig()]);
   return {
-    activeLangs,
-    loading,
+    activeLangs: data,
+    loading: isLoading,
+    error: isError ? error : null,
     locale,
   };
 };
