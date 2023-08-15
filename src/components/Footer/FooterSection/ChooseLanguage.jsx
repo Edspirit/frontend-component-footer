@@ -8,9 +8,7 @@ import {
   useMediaQuery,
   useToggle,
 } from '@edx/paragon';
-import {
-  Check, Close, Language,
-} from '@edx/paragon/icons';
+import { Check, Close, Language } from '@edx/paragon/icons';
 import React, { useContext, useState } from 'react';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { getConfig } from '@edx/frontend-platform';
@@ -23,16 +21,11 @@ import { AppContext } from '@edx/frontend-platform/react';
 import handleRedirect from '../handleRedirect';
 import useGetActiveLangs from '../useGetActiveLangs';
 import { ReactComponent as ArrowDown } from '../../../assets/icon-arrow-down.svg';
-import { supportedLanguages } from '../supportsLanguages';
+import { getLangCode, getLangName } from '../supportsLanguages';
 
 const ChooseLanguage = () => {
   const { activeLangs } = useGetActiveLangs();
-  const getLangName = (languageCode) => {
-    const langSelected = supportedLanguages?.find(
-      (lang) => lang?.code === languageCode,
-    );
-    return langSelected?.name;
-  };
+
   const [value, setValue] = useState(getLangName(getLocale()));
   const [isOpen, open, close] = useToggle(false);
   const isMobile = useMediaQuery({ maxWidth: '768px' });
@@ -55,13 +48,6 @@ const ChooseLanguage = () => {
     }
     return params; // TODO: Once the server returns the updated preferences object, return that.
   }
-
-  const getLangCode = (languageName) => {
-    const langSelected = supportedLanguages?.find(
-      (lang) => lang?.name === languageName,
-    );
-    return langSelected.code;
-  };
 
   const handleClick = (e) => {
     if (!authenticatedUser) {
