@@ -43,7 +43,10 @@ const FooterSection = () => {
               {footerData?.links?.sections[0]?.section_links?.map((nav) => (
                 <li className="mb-2" key={nav.title}>
                   <a className="custom-link" href={nav.link}>
-                    {nav.title}
+                    <FormattedMessage
+                      id={nav.title}
+                      defaultMessage={nav.title}
+                    />
                   </a>
                 </li>
               ))}
@@ -58,7 +61,10 @@ const FooterSection = () => {
               {footerData?.links?.sections[1]?.section_links?.map((nav) => (
                 <li className="mb-2" key={nav.title}>
                   <a className="custom-link" href={nav.link}>
-                    {nav.title}
+                    <FormattedMessage
+                      id={nav.title}
+                      defaultMessage={nav.title}
+                    />
                   </a>
                 </li>
               ))}
