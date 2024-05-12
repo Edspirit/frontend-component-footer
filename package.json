@@ -66,7 +66,7 @@
     "ts-jest": "^29.1.2"
   },
   "peerDependencies": {
-    "@edx/frontend-platform": "^4.0.0",
+    "@edx/frontend-platform": "^5.0.0",
     "@openedx/frontend-plugin-framework": "^1.1.2",
     "@openedx/paragon": ">= 21.11.3 < 23.0.0",
     "prop-types": "^15.5.10",
