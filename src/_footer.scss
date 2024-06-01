@@ -252,6 +252,9 @@
   }
 }
 @media (max-width: 600px) {
+  #root {
+    padding-bottom: 56px;
+  }
   .footer-wrapper {
     display: flex;
     flex-direction: column;
