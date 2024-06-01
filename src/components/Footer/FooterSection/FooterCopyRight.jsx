@@ -25,7 +25,7 @@ const FooterCopyRight = () => {
   }
   return (
     <div className='footer-copy-right-container '>
-      <div className='footer-copy-right custom-container d-flex justify-content-between align-items-center '>
+      <div className='footer-copy-right custom-container d-flex justify-content-between'>
         <div className='d-flex align-items-center'>
           <div className='logo-container mr-2'>
             <img
