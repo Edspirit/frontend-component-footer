@@ -5,8 +5,8 @@ import edxLogo from '../../../assets/Edx.svg';
 import edLogo from '../../../assets/edspirit-logo.png';
 import mobileEdxLogo from '../../../assets/mobile-edx-logo.svg';
 import mobileFooterLogo from '../../../assets/mobile-footer-logo.svg';
-import { getConfig } from '@edx/frontend-platform';
 import useGetDynamicFeatures from '../useGetDynamicFeatures';
+import useGetConfig from '../useGetConfig';
 
 const FooterCopyRight = () => {
   let removeEdxFooter= false;
@@ -14,7 +14,9 @@ const FooterCopyRight = () => {
   let logoUrl= '';
 
   const { isLoading, isError, data } = useGetDynamicFeatures();
-  const  platformName  = getConfig().SITE_NAME;
+    const {
+    platformName,
+  } = useGetConfig();
 
   if (!isLoading && !isError) {
     ({
