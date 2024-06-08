@@ -105,11 +105,20 @@ export const supportedLanguages = [
     name: '中文 (简体)',
     released: true,
   },
+  {
+    code: 'zh-hk',
+    name: '中文 (香港)',
+    released: true,
+  },
 ];
 
-export const getLangCode = (langName) => supportedLanguages.find((lang) => lang.name === langName)?.code;
-export const getLangName = (langCode) => supportedLanguages.find(
-  (lang) => lang.code.toLowerCase() === langCode.toLowerCase(),
-)?.name;
-export const codeToTitle = (arrayLang) => arrayLang?.map((langCode) => getLangName(langCode));
-export const titleToCode = (arrayLang) => arrayLang?.map((langName) => getLangCode(langName));
+export const getLangCode = (langName) =>
+  supportedLanguages.find((lang) => lang.name === langName)?.code;
+export const getLangName = (langCode) =>
+  supportedLanguages.find(
+    (lang) => lang.code.toLowerCase() === langCode.toLowerCase()
+  )?.name;
+export const codeToTitle = (arrayLang) =>
+  arrayLang?.map((langCode) => getLangName(langCode));
+export const titleToCode = (arrayLang) =>
+  arrayLang?.map((langName) => getLangCode(langName));
