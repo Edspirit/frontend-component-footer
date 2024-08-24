@@ -7,6 +7,7 @@ import ChooseLanguage from './FooterSection/ChooseLanguage';
 import useGetFooters from './useGetFooters';
 import FooterSocialIcons from './FooterSection/FooterSocialIcons';
 import FooterCopyRight from './FooterSection/FooterCopyRight';
+import { getLocale } from '@edx/frontend-platform/i18n';
 
 const FooterSection = () => {
   const { footerData } = useGetFooters();
