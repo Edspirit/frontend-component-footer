@@ -11,6 +11,14 @@ import FooterCopyRight from './FooterSection/FooterCopyRight';
 const FooterSection = () => {
   const { footerData } = useGetFooters();
   const currentLang = getLocale();
+
+  const description = footerData?.description[currentLang] ?? '';
+  const firstChar = description.charAt(0);
+  const isRTL = determineDirection(firstChar) === 'rtl';
+
+  const directionStyle = {
+    direction: isRTL ? 'rtl' : 'ltr',
+  };
   return (
     <footer className="footer-container">
       <div className="custom-container mb-4 pt-5">
@@ -24,45 +32,51 @@ const FooterSection = () => {
                   alt="footer-logo"
                 />
               </div>
-              <p>{footerData?.description}</p>
+              <p style={directionStyle}>
+                {description}
+              </p>
             </div>
           </div>
 
-          <div className=" footer-col1-wrapper">
-            <h5 className="mb-2.5">
-              {footerData?.links?.[currentLang]?.sections[0]?.section_title}
-            </h5>
-            <ul className="list-unstyled">
-              {footerData?.links?.[currentLang]?.sections[0]?.section_links?.map((nav) => (
-                <li className="mb-2" key={nav.title}>
-                  <a className="custom-link" href={nav.link}>
-                    <FormattedMessage
-                      id={nav.title}
-                      defaultMessage={nav.title}
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {footerData?.links?.[currentLang]?.sections?.[0]?.section_title && (
+            <div className=" footer-col1-wrapper">
+              <h5 className="mb-2.5">
+                {footerData?.links?.[currentLang]?.sections[0]?.section_title}
+              </h5>
+              <ul className="list-unstyled">
+                {footerData?.links?.[currentLang]?.sections[0]?.section_links?.map((nav) => (
+                  <li className="mb-2" key={nav.title}>
+                    <a className="custom-link" href={nav.link}>
+                      <FormattedMessage
+                        id={nav.title}
+                        defaultMessage={nav.title}
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          <div className=" footer-col2-wrapper ">
-            <h5 className="mb-2.5">
-              {footerData?.links?.[currentLang]?.sections[1]?.section_title}
-            </h5>
-            <ul className="list-unstyled">
-              {footerData?.links?.[currentLang]?.sections[1]?.section_links?.map((nav) => (
-                <li className="mb-2" key={nav.title}>
-                  <a className="custom-link" href={nav.link}>
-                    <FormattedMessage
-                      id={nav.title}
-                      defaultMessage={nav.title}
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {footerData?.links?.[currentLang]?.sections?.[1]?.section_title && (
+            <div className=" footer-col2-wrapper ">
+              <h5 className="mb-2.5">
+                {footerData?.links?.[currentLang]?.sections[1]?.section_title}
+              </h5>
+              <ul className="list-unstyled">
+                {footerData?.links?.[currentLang]?.sections[1]?.section_links?.map((nav) => (
+                  <li className="mb-2" key={nav.title}>
+                    <a className="custom-link" href={nav.link}>
+                      <FormattedMessage
+                        id={nav.title}
+                        defaultMessage={nav.title}
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className=" footer-col3-wrapper ">
             <ChooseLanguage />
@@ -71,7 +85,6 @@ const FooterSection = () => {
         </div>
       </div>
       <FooterCopyRight />
-
     </footer>
   );
 };
