@@ -8,7 +8,7 @@ import { ReactComponent as Instagram } from '../../../assets/instagram.svg';
 
 const FooterSocialIcons = ({ footerSocialData }) => (
   <div className="social-container">
-    {footerSocialData.linkedin && (
+    {footerSocialData?.linkedin && (
       <a
         href={footerSocialData.linkedin}
         target="_blank"
@@ -17,7 +17,7 @@ const FooterSocialIcons = ({ footerSocialData }) => (
         <Icon className="social-icon-footer" src={Linkedin} />
       </a>
     )}
-    {footerSocialData.facebook && (
+    {footerSocialData?.facebook && (
       <a
         href={footerSocialData.facebook}
         target="_blank"
@@ -26,7 +26,7 @@ const FooterSocialIcons = ({ footerSocialData }) => (
         <Icon className="social-icon-footer" src={Facebook} />
       </a>
     )}
-    {footerSocialData.x && (
+    {footerSocialData?.x && (
       <a
         href={footerSocialData.x}
         target="_blank"
@@ -35,7 +35,7 @@ const FooterSocialIcons = ({ footerSocialData }) => (
         <Icon className="social-icon-footer" src={Twitter} />
       </a>
     )}
-    {footerSocialData.instagram && (
+    {footerSocialData?.instagram && (
       <a
         href={footerSocialData.instagram}
         target="_blank"
