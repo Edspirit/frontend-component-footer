@@ -14,6 +14,7 @@ const FooterSection = () => {
 
   const description = footerData?.description[currentLang] ?? '';
   const firstChar = description.charAt(0);
+  const determineDirection = (text) => (text.charCodeAt(0) > 127 ? 'rtl' : 'ltr');
   const isRTL = determineDirection(firstChar) === 'rtl';
 
   const directionStyle = {
