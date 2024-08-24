@@ -1,13 +1,12 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { FormattedMessage } from '@edx/frontend-platform/i18n';
+import { FormattedMessage, getLocale } from '@edx/frontend-platform/i18n';
 import DefaultLogo from '../../assets/NavLogo-placeholder.svg';
 import ChooseLanguage from './FooterSection/ChooseLanguage';
 import useGetFooters from './useGetFooters';
 import FooterSocialIcons from './FooterSection/FooterSocialIcons';
 import FooterCopyRight from './FooterSection/FooterCopyRight';
-import { getLocale } from '@edx/frontend-platform/i18n';
 
 const FooterSection = () => {
   const { footerData } = useGetFooters();
