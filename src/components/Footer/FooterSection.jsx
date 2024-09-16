@@ -12,7 +12,7 @@ const FooterSection = () => {
   const { footerData } = useGetFooters();
   const currentLang = getLocale();
 
-  const description = footerData?.description[currentLang] ?? '';
+  const description = footerData?.description?.[currentLang] ?? '';
   const firstChar = description.charAt(0);
   const determineDirection = (text) => (text.charCodeAt(0) > 127 ? 'rtl' : 'ltr');
   const isRTL = determineDirection(firstChar) === 'rtl';
@@ -81,7 +81,7 @@ const FooterSection = () => {
 
           <div className=" footer-col3-wrapper ">
             <ChooseLanguage />
-            <FooterSocialIcons footerSocialData={footerData?.links[currentLang]?.socials} />
+            <FooterSocialIcons footerSocialData={footerData?.links?.[currentLang]?.socials} />
           </div>
         </div>
       </div>
