@@ -7,8 +7,8 @@ import {
   ModalLayer,
   useMediaQuery,
   useToggle,
-} from '@edx/paragon';
-import { Check, Close, Language } from '@edx/paragon/icons';
+} from '@openedx/paragon';
+import { Check, Close, Language } from '@openedx/paragon/icons';
 import React, { useContext, useState } from 'react';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { getConfig } from '@edx/frontend-platform';

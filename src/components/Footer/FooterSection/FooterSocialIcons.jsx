@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Icon } from '@edx/paragon';
+import { Icon } from '@openedx/paragon';
 import React from 'react';
 import { ReactComponent as Linkedin } from '../../../assets/linkedin.svg';
 import { ReactComponent as Facebook } from '../../../assets/facebook.svg';
