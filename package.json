@@ -64,7 +64,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "lodash": "^4.17.21",
     "ts-jest": "^29.1.2",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "@openedx/frontend-plugin-framework": "^1.1.2"
   },
   "peerDependencies": {
     "@edx/frontend-platform": "^7.0.0 || ^8.0.0",
