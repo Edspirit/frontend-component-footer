@@ -10,4 +10,5 @@ src/i18n/transifex_input.json
 temp/babel-plugin-react-intl
 /.vscode
 module.config.js
-src/i18n/messages
+src/i18n/messages/*
+!src/i18n/messages/*.json
